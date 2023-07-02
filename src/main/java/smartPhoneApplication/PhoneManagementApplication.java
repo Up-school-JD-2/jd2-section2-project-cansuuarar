@@ -82,14 +82,6 @@ public class PhoneManagementApplication {
 
 				} while (choice2 > -1);
 
-				for (Phone p : phoneManager.phoneList) {
-					p.printPhoneInfo(p);
-					System.out.println();
-					fileManager.backupData(p);
-					fileManager.readBackupData(p);
-
-				}
-
 			}
 
 			case 2 -> {
@@ -205,6 +197,15 @@ public class PhoneManagementApplication {
 			case 8 -> {
 				for (Phone p : phoneManager.phoneList) {
 					p.printPhoneInfo(p);
+					fileManager.backupData(p);
+					fileManager.readBackupData(p);
+
+				}
+				
+				
+				for (Phone p : phoneManager.phoneList) {
+					p.printPhoneInfo(p);
+					System.out.println();
 					fileManager.backupData(p);
 					fileManager.readBackupData(p);
 
