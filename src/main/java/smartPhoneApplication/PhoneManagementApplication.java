@@ -1,4 +1,4 @@
-package SmartPhoneApplication;
+package smartPhoneApplication;
 
 import java.util.Scanner;
 

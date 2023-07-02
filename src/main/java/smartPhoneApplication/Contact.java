@@ -1,4 +1,4 @@
-package SmartPhoneApplication;
+package smartPhoneApplication;
 
 public class Contact {
 
