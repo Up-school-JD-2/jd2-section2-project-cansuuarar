@@ -30,4 +30,11 @@ public class ContactManager {
 		}
 	}
 	
+	public String searchContact(Phone phone, Contact contact) {
+		 phone.getContactList().contains(contact);
+		 System.out.println(contact.getFirstName());
+		 return contact.getFirstName();
+	}
+	
+	
 }

@@ -41,4 +41,9 @@ public class App implements Serializable{
 		this.size = size;
 	}
 
+	@Override
+	public String toString() {
+		return "App [name=" + name + ", version=" + version + ", size=" + size + "]";
+	}
+
 }

@@ -86,18 +86,19 @@ public class Phone implements Serializable{
 
 	public void printPhoneInfo(Phone phone) {
 		System.out.println("\nPhone information: " + "\nBrand: " + getBrand() + "\nModel: " + getModel()
-				+ "\nSerialNumber: " + getSerialNumber() + "\nMemory: " + getMemory() + "\nOs: " + getOsType());
+				+ "\nSerialNumber: " + getSerialNumber() + "\nMemory: " + getMemory() + "\nOS: " + getOsType());
 
-		System.out.print("Apps: ");
+		/*
+		System.out.println("\nApps: ");
 		for (App app : appList) {
-			System.out.print(app.getName() + " ");
+			System.out.println(app.toString());
 		}
 		
-		System.out.print("\nContacts: ");
+		System.out.println("\nContacts: ");
 		for(Contact contact : contactList) {
-			System.out.print(contact.getFirstName() + ", " +  contact.getPhoneNumber());
+			System.out.println(contact.toString());
 		}
-		
+		*/
 		
 
 	}

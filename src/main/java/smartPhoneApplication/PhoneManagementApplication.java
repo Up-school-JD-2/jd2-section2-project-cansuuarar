@@ -13,17 +13,19 @@ public class PhoneManagementApplication {
 		PhoneManager phoneManager = new PhoneManager();
 		AppManager appManager = new AppManager();
 		ContactManager contactManager = new ContactManager();
-
 		FileManager fileManager = new FileManager();
-		//String fileName = "output.txt";
 
 		do {
-			System.out.println("------------------");
-			System.out.println(" 1- Add a phone.");
-			System.out.println(" 2- Show available storage space of phone!");
-			System.out.println("-2- Exit");
+			System.out.println("\n 1- Add a phone.");
+			System.out.println(" 2- Delete an app from specified phone");
+			System.out.println(" 3- Update an app at specified phone");
+			System.out.println(" 4- Delete a contact from specified phone");
+			System.out.println(" 5- Update a contact at specified phone");
+			System.out.println(" 6- Search a contact at specified phone");
+			System.out.println(" 7- Show available storage space of phone");
+			System.out.println(" 8- Print phone information.");
+			System.out.println("-3- Exit");
 
-			System.out.println("-------------------");
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1 -> {
@@ -42,14 +44,8 @@ public class PhoneManagementApplication {
 				phoneManager.addPhone(phone);
 
 				do {
-					System.out.println("1- Add an app");
-					System.out.println("2- Delete an app");
-					System.out.println("3- Update an app");
-					System.out.println("4- Add a contact");
-					System.out.println("5- Delete a contact");
-					System.out.println("6- Update a contact");
-					System.out.println("7- Call a contact");
-
+					System.out.println("\n1- Add an app");
+					System.out.println("2- Add a contact");
 					System.out.println("-2 Exit");
 
 					choice2 = sc.nextInt();
@@ -68,32 +64,6 @@ public class PhoneManagementApplication {
 					}
 
 					case 2 -> {
-						System.out.print("Enter application name will be deleted: ");
-						String name = sc.next();
-
-						for (App a : appManager.appList) {
-							if (a.getName().equalsIgnoreCase(name)) {
-								appManager.deleteAppFromPhone(phone, a);
-							} else {
-								System.out.println("application couldnt find.");
-							}
-						}
-					}
-					case 3 -> {
-						// TODO
-						System.out.print("Enter application name will be updated: ");
-						String name = sc.next();
-						for (App a : appManager.appList) {
-							if (a.getName().equalsIgnoreCase(name)) {
-								appManager.updateAppInPhone(phone, a, a);
-							} else {
-								System.out.println("application couldnt find.");
-							}
-						}
-
-					}
-
-					case 4 -> {
 						System.out.print("Enter contact's first name will be added: ");
 						String firstName = sc.next();
 						System.out.print("Enter contact's last name will be added: ");
@@ -108,58 +78,140 @@ public class PhoneManagementApplication {
 						contactManager.addContactToPhone(phone, contact);
 					}
 
-					case 5 -> {
-						System.out.print("Enter contact's first name will be deleted: ");
-						String firstName = sc.next();
-
-						for (Contact c : contactManager.contactList) {
-							if (c.getFirstName().equalsIgnoreCase(firstName)) {
-								contactManager.deleteContactFromPhone(phone, c);
-							}
-						}
-
-					}
-
-					case 6 -> {
-						// System.out.print("Enter contact's first name will be updated: ");
-						// String firstName = sc.next();
-						System.out.print("Enter contact's new phone number: ");
-						String phoneNumber = sc.next();
-
-						for (Contact c : contactManager.contactList) {
-							contactManager.updateContactPhoneNumber(phone, c, phoneNumber);
-						}
-
-					}
-
-					}
-
-					for (Phone p : phoneManager.phoneList) {
-						p.printPhoneInfo(p);
-						System.out.println();
-						fileManager.backupData(p);
-						fileManager.readBackupData(p);
-						
 					}
 
 				} while (choice2 > -1);
-				
+
+				for (Phone p : phoneManager.phoneList) {
+					p.printPhoneInfo(p);
+					System.out.println();
+					fileManager.backupData(p);
+					fileManager.readBackupData(p);
+
+				}
+
 			}
 
 			case 2 -> {
+
+				System.out.print("Enter application name will be deleted from specified phone: ");
+				String appName = sc.next();
+				System.out.print("Enter phone brand name will be deleted: ");
+				String phoneBrand = sc.next();
+
+				for (Phone phone : phoneManager.phoneList) {
+					System.out.println(phone.toString());
+					if (phone.getBrand().equalsIgnoreCase(phoneBrand)) {
+						for (App app : appManager.appList) {
+							if (app.getName().equalsIgnoreCase(appName)) {
+								appManager.deleteAppFromPhone(phone, app);
+							}
+						}
+					} else {
+						System.out.println("application couldnt find ");
+					}
+				}
+			}
+
+			case 3 -> {
+				System.out.print("Enter application name will be updated at specified phone: ");
+				String appName = sc.next();
+				System.out.print("Enter phone brand name will be updated: ");
+				String phoneBrand = sc.next();
+				System.out.println("Enter new version off application.");
+				String newVersion = sc.next();
+
+				for (Phone phone : phoneManager.phoneList) {
+					if (phone.getBrand().equalsIgnoreCase(phoneBrand)) {
+						for (App app : appManager.appList) {
+							if (app.getName().equalsIgnoreCase(appName)) {
+								appManager.updateAppInPhone(phone, app, newVersion);
+							}
+						}
+					} else {
+						System.out.println("App couldnt find.");
+					}
+
+				}
+			}
+
+			case 4 -> {
+				System.out.print("Enter contact's first name will be deleted from specified phone: ");
+				String firstName = sc.next();
+				System.out.print("Enter phone brand: ");
+				String phoneBrand = sc.next();
+
+				for (Phone phone : phoneManager.phoneList) {
+					if (phone.getBrand().equalsIgnoreCase(phoneBrand)) {
+						for (Contact contact : contactManager.contactList) {
+							if (contact.getFirstName().equalsIgnoreCase(firstName)) {
+								contactManager.deleteContactFromPhone(phone, contact);
+							}
+						}
+					} else {
+						System.out.println("contact couldnt find.");
+					}
+				}
+			}
+
+			case 5 -> {
+				System.out.print("Enter phone brand will be updated: ");
+				String phoneBrand = sc.next();
+				System.out.print("Enter contact's first name will be updated at specified phone: ");
+				String contactName = sc.next();
+				System.out.println("Enter contact's new phone number: ");
+				String newPhoneNumber = sc.next();
+
+				for (Phone phone : phoneManager.phoneList) {
+					if (phone.getBrand().equalsIgnoreCase(phoneBrand)) {
+						for (Contact contact : contactManager.contactList) {
+							if (contact.getFirstName().equalsIgnoreCase(contactName)) {
+								contactManager.updateContactPhoneNumber(phone, contact, newPhoneNumber);
+							}
+						}
+					}
+				}
+			}
+
+			case 6 -> {
+				System.out.print("Enter phone brand will be search: ");
+				String phoneBrand = sc.next();
+				System.out.print("Enter contact's first name will be searched at specified phone: ");
+				String contactName = sc.next();
+
+				for (Phone phone : phoneManager.phoneList) {
+					if (phone.getBrand().equalsIgnoreCase(phoneBrand)) {
+						for (Contact contact : contactManager.contactList) {
+							if (contact.getFirstName().equalsIgnoreCase(contactName)) {
+								contactManager.searchContact(phone, contact);
+							}
+						}
+					} else {
+						System.out.println("contact couldnt find.");
+					}
+				}
+			}
+
+			case 7 -> {
 				for (Phone phone : phoneManager.phoneList) {
 					double appSize = phone.getAppList().stream().mapToDouble(p -> p.getSize()).sum();
 					double freeSpace = phone.getMemory() - appSize;
 					System.out.println(phone.getBrand() + "'s free space is " + freeSpace + " GB.");
-					
+
 				}
-				
 
 			}
 
+			case 8 -> {
+				for (Phone p : phoneManager.phoneList) {
+					p.printPhoneInfo(p);
+					fileManager.backupData(p);
+					fileManager.readBackupData(p);
+
+				}
+			}
 			}
 
-			
 		} while (choice > -1);
 
 	}
